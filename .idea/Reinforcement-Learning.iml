@@ -5,6 +5,9 @@
       <sourceFolder url="file://$MODULE_DIR$/gridworld-mdp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ten-armed-testbed" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/gridworld-mdp/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/ten-armed-testbed/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/tic-tac-toe/.idea" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.11 (Reinforcement-Learning)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
