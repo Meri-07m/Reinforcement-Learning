@@ -1,12 +1,18 @@
-Reinforcement Learning Tic-Tac-Toe
+🎮 Tic-Tac-Toe in Reinforcement Learning
 
-Overview
+🧩 Game Overview
 
-🎮This project implements a Reinforcement Learning (RL) agent for playing Tic-Tac-Toe. The RL players are trained using a value-based learning approach, and they can compete against each other or play against a human player.
+.2 players take turns on a 3×3 board.
 
-🧠 Game Setup
-.Game: Two-player Tic-Tac-Toe (X vs O).
-.Objective: Win by placing 3 marks in a row.
-.Assumption: Opponent is imperfect (not always optimal).
-.Goal: Learn how to exploit mistakes and maximize winning chances.
+.Goal: Get 3 marks in a row (horizontally, vertically, or diagonally).
+
+.Game ends in a win or a draw (if the board is full with no winner).
+
+🧠 Problem Setup
+
+.Our agent plays X against an imperfect opponent.
+
+.Draws and losses are treated equally bad.
+
+.Goal: Learn to maximize winning chances over time.
 
