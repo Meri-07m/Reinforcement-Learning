@@ -18,4 +18,4 @@ This project demonstrates:
 - **Discount Factor (γ)**: Determines the importance of future rewards.
 - **Convergence**: Both Policy Iteration and Value Iteration converge to the optimal policy and value function.
 
-## 📁 Project Structure
+---
