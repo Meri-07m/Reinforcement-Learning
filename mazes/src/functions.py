@@ -3,6 +3,7 @@ from tqdm import tqdm
 
 from src.models import TrivialModel, TimeModel
 
+
 def choose_action(state, action_value_estimates, maze, dyna_params):
     # region Summary
     """
@@ -53,8 +54,9 @@ def dyna_q(action_value_estimates, model, maze, dyna_params):
     # Initialize a counter for steps to 0
     steps = 0
 
+
     # While the agent hasn't reached its goal
-    while state not  in maze.goals:
+    while state not in maze.goals:
         # track the steps
         steps += 1
 
@@ -62,27 +64,30 @@ def dyna_q(action_value_estimates, model, maze, dyna_params):
         action = choose_action(state, action_value_estimates, maze, dyna_params)
 
         # get the next state and reward
-        next_state, reward= maze.step(state, action)
+        next_state, reward = maze.step(state, action)
 
         # perform Q-Learning update
-        action_value_estimates[state[0], state[1], action] += dyna_params.step_size * (reward + dyna_params.discount *np.max(action_value_estimates[next_state[0], next_state[1], :])-action_value_estimates[state[0], state[1], action])
+        action_value_estimates[state[0], state[1], action] += dyna_params.step_size * (reward + dyna_params.discount * np.max(action_value_estimates[next_state[0], next_state[1], :]) - action_value_estimates[state[0], state[1], action])
+
         # feed the model with experience
-        model.feed(state, action,next_state,reward)
+        model.feed(state, action, next_state, reward)
 
         # sample experience from the model
         for t in range(dyna_params.planning_steps):
             state_, action_, next_state_, reward_ = model.sample()
-            action_value_estimates[state_[0],state_[1],action_]+= dyna_params.step_size * (
-              (reward_+dyna_params.discount * np.max(action_value_estimates[next_state_[0], next_state_[1], :])- (action_value_estimates[state_[0], state_[1], action_]))
-          )
+            action_value_estimates[state_[0], state_[1], action_] += dyna_params.step_size * (
+                (reward_ + dyna_params.discount * np.max(action_value_estimates[next_state_[0], next_state_[1], :]) - (
+                    action_value_estimates[state_[0], state_[1], action_])))
+
         # move to next state
         state = next_state
 
         # check whether it has exceeded the step limit
         if steps > maze.max_steps:
             break
-
     return steps
+
+
 
     # endregion Body
 
@@ -106,15 +111,15 @@ def changing_maze(maze, dyna_params):
     max_steps = maze.max_steps
 
     # Track the cumulative rewards
-    rewards = np.zeros((dyna_params.runs,2, max_steps))
+    rewards = np.zeros((dyna_params.runs, 2, max_steps))
 
     # For every run
-    for run in tqdm (range(dyna_params.runs)):
+    for run in tqdm(range(dyna_params.runs)):
         # set up models
-        models = [TrivialModel(), TimeModel(maze,time_weight = dyna_params.time_weight)]
+        models = [TrivialModel(), TimeModel(maze, time_weight=dyna_params.time_weight)]
 
         # initialize state-action value estimates with 0s
-        action_value_estimates = [np.zeros(maze.action_value_estimates_size),np.zeros(maze.action_value_estimates_size)]
+        action_value_estimates = [np.zeros(maze.action_value_estimates_size), np.zeros(maze.action_value_estimates_size)]
 
         # for every method
         for i in range(len(dyna_params.methods)):
@@ -132,11 +137,12 @@ def changing_maze(maze, dyna_params):
             # while the max steps hasn't been reached
             while steps < max_steps:
                 # play for an episode
-                steps += dyna_q(action_value_estimates[i],models[i],maze,dyna_params)
+                steps += dyna_q(action_value_estimates[i], models[i], maze, dyna_params)
 
                 # update cumulative rewards
-                rewards[run,i,last_steps: steps] = rewards[run,i,last_steps]
-                rewards[run,i,min(steps,max_steps - 1)] = rewards[run,i,last_steps] + 1
+                rewards[run, i, last_steps: steps] = rewards[run, i, last_steps]
+                rewards[run, i, min(steps, max_steps - 1)] = rewards[run, i, last_steps] + 1
+
                 # get the last steps
                 last_steps = steps
 
@@ -146,7 +152,7 @@ def changing_maze(maze, dyna_params):
                     maze.obstacles = maze.new_obstacles
 
     # Average rewards
-    rewards = rewards.mean(axis = 0)
+    rewards = rewards.mean(axis=0)
 
     return rewards
 
@@ -171,64 +177,73 @@ def prioritized_sweeping(action_value_estimates, model, maze, dyna_params):
     # region Body
 
     # Start at the maze's start state
-
+    state = maze.start
 
     # Track the number of steps in this episode
-
+    steps = 0
 
     # Track the number of backups in planning phase
-
+    backups = 0
 
     # While the agent hasn't reached its goal
-
+    while state not in maze.goals:
         # increment the number of steps
-
+        steps += 1
 
         # choose an action
-
+        action = choose_action(state, action_value_estimates, maze, dyna_params)
 
         # get the next state and reward
-
+        next_state, reward = maze.step(state, action)
 
         # feed the model with experience
-
+        model.feed(state, action, next_state, reward)
 
         # get the priority for current state-action pair
-
+        priority = np.abs(reward
+                          + dyna_params.discount * np.max(action_value_estimates[next_state[0], next_state[1], :])
+                          - action_value_estimates[state[0], state[1], action])
 
         # check whether priority exceeds threshold
-
+        if priority > dyna_params.threshold:
+            model.insert(priority, state, action)
 
         # start planning
-
+        planning_step = 0
 
         # planning for several steps (although, keep planning until the priority queue becomes empty will converge much faster)
-
+        while planning_step < dyna_params.planning_steps and not model.empty():
             # get a sample with the highest priority from the model
-
+            priority, state_, action_, next_state_, reward_ = model.sample()
 
             # update the state action value for the sample
-
+            delta = (reward_ + dyna_params.discount
+                            * np.max(action_value_estimates[next_state_[0], next_state_[1], :])
+                            - action_value_estimates[state_[0], state_[1], action_])
 
             # update action-value estimates
-
+            action_value_estimates[state_[0], state_[1], action_] += dyna_params.step_size * delta
 
             # deal with all the predecessors of the sample state
-
+            for state_predecessors, action_predecessors, reward_pre in model.predecessor(state_):
+                priority = np.abs(reward_pre + dyna_params.discount
+                                  * np.max(action_value_estimates[state_[0], state_[1], :])
+                                  - action_value_estimates[state_predecessors[0], state_predecessors[1], action_predecessors])
 
                 # check whether priority exceeds threshold
-
+                if priority > dyna_params.threshold:
+                    model.insert(priority, state_predecessors, action_predecessors)
 
             # increment the planning step
-
+            planning_step += 1
 
         # move to the next state
-
+        state = next_state
 
         # update the number of backups
+        backups += planning_step + 1
 
-
-   # return backups
+    return backups
 
     # endregion Body
 
