@@ -80,5 +80,3 @@ The Random Walk example with n-step TD is a **classic benchmark** in reinforceme
 It is a perfect starting point for students, researchers, or hobbyists to explore **predictive RL algorithms** before moving on to more complex domains like Gridworlds, Atari games, or continuous control tasks.
 
 ---
-
-## 🚀 Getting Started
