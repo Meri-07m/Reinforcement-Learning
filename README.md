@@ -1,69 +1,89 @@
-# Reinforcement-Learning
+# 🧠 Reinforcement Learning Repository
 
-This repository contains **10 Reinforcement Learning (RL)** projects, each demonstrating the application of different RL algorithms to solve various problems and environments. These projects are designed to provide hands-on learning and exploration of various RL techniques, including **Q-learning**, **SARSA**, **Monte Carlo**, and more.
+Welcome to the **Reinforcement-Learning** repository by **Meri-07m**!  
+This repository is a **comprehensive collection of reinforcement learning (RL) algorithms, environments, and experiments**, designed for learning, research, and exploration of key RL concepts. It includes classic RL benchmarks, function approximation techniques, exploration strategies, and visualization tools.
 
-## Projects in This Repository
+Whether you're new to RL or an advanced researcher, this repository provides **modular implementations, detailed examples, and visualizations** to study agent behaviors and algorithm performance.
 
-### 1. [Blackjack](https://github.com/Meri-07m/Reinforcement-Learning/tree/main/blackjack)
-   - **Description**: A Blackjack game environment where RL algorithms are used to train an agent to play optimally.
-   - **Algorithms used**: SARSA, Q-learning, Monte Carlo Methods.
-   - **Objective**: Maximize rewards by learning an optimal strategy to beat the dealer.
+---
 
-### 2. [Cliff Walking](https://github.com/Meri-07m/Reinforcement-Learning/tree/main/cliff-walking)
-   - **Description**: A Gridworld problem where the agent needs to avoid cliffs and reach a goal.
-   - **Algorithms used**: SARSA, Q-learning.
-   - **Objective**: Navigate through the grid while avoiding dangerous cliffs to maximize cumulative rewards.
+## 📂 Repository Structure
 
-### 3. [Windy Gridworld](https://github.com/Meri-07m/Reinforcement-Learning/tree/main/windy-gridworld)
-   - **Description**: A variation of the gridworld environment where wind forces affect the agent’s movement, making navigation more challenging.
-   - **Algorithms used**: SARSA, Q-learning.
-   - **Objective**: Reach the goal in the grid while learning to navigate the wind's impact on movement.
+The repository contains the following submodules, each with its own focus:
 
-### 4. [Ten-Armed Testbed](https://github.com/Meri-07m/Reinforcement-Learning/tree/main/ten-armed-testbed)
-   - **Description**: The Ten-Armed Bandit problem is used to test RL algorithms for balancing exploration vs exploitation.
-   - **Algorithms used**: ε-greedy, UCB (Upper Confidence Bound), Gradient Bandit.
-   - **Objective**: Maximize the cumulative reward by selecting the optimal arm in a slot machine-like environment.
+### 1. `blackjack`
+- Implements RL algorithms in the **Blackjack environment**.
+- Includes policy evaluation, value iteration, and Monte Carlo methods.
+- Serves as a classic example of decision-making under uncertainty.
 
-### 5. [Random Walk](https://github.com/Meri-07m/Reinforcement-Learning/tree/main/random-walk)
-   - **Description**: A simple random walk problem that demonstrates learning in a probabilistic environment.
-   - **Algorithms used**: Monte Carlo Methods, Temporal Difference Learning.
-   - **Objective**: Learn the optimal actions to maximize rewards over time in a stochastic setting.
+### 2. `cliff-walking`
+- Demonstrates RL in the **Cliff Walking environment**.
+- Compares **Q-Learning** and **SARSA**.
+- Visualizes optimal and suboptimal policies.
 
-### 6. [Infinite Variance](https://github.com/Meri-07m/Reinforcement-Learning/tree/main/infinite-variance)
-   - **Description**: An environment with infinite variance rewards to demonstrate how RL agents adapt to highly variable environments.
-   - **Algorithms used**: Monte Carlo, Q-learning, SARSA.
-   - **Objective**: Learn effective strategies in environments with high variance and unpredictable rewards.
+### 3. `coarse-coding`
+- Explores **coarse coding** for function approximation in RL.
+- Implements **tile coding** and **radial basis functions (RBFs)**.
+- Supports Q-Learning and SARSA agents in continuous or large state spaces.
 
-### 7. [Gridworld MDP](https://github.com/Meri-07m/Reinforcement-Learning/tree/main/gridworld-mdp)
-   - **Description**: A Markov Decision Process (MDP) where an agent must navigate a gridworld to reach a goal.
-   - **Algorithms used**: Value Iteration, Policy Iteration.
-   - **Objective**: Learn the optimal policy using dynamic programming methods to maximize cumulative rewards.
+### 4. `gambler-problem`
+- Models the **Gambler’s Problem** from dynamic programming.
+- Demonstrates **policy evaluation and improvement** techniques.
+- Provides insights into risk-sensitive decision-making.
 
-### 8. [Gambler’s Problem](https://github.com/Meri-07m/Reinforcement-Learning/tree/main/gambler-problem)
-   - **Description**: A classic problem where the agent needs to maximize its wealth over a series of gambles.
-   - **Algorithms used**: Dynamic Programming, Value Iteration.
-   - **Objective**: Maximize the agent's wealth over a set of gambles by determining optimal betting strategies.
+### 5. `gridworld-dp`
+- Implements **Dynamic Programming (DP)** in gridworlds.
+- Features **value iteration** and **policy iteration**.
+- Visualizes value functions and optimal policies.
 
-### 9. [Blackjack with Deep Q-Learning](https://github.com/Meri-07m/Reinforcement-Learning/tree/main/blackjack-dqn)
-   - **Description**: Extension of the Blackjack project where a **Deep Q-Network (DQN)** is used to solve the Blackjack problem.
-   - **Algorithms used**: Deep Q-Learning.
-   - **Objective**: Apply deep reinforcement learning to learn an optimal strategy for Blackjack.
+### 6. `gridworld-mdp`
+- Focuses on **Markov Decision Processes (MDPs)** in gridworlds.
+- Includes stochastic transitions, rewards, and policy evaluation.
+- Provides a theoretical foundation for RL algorithms.
 
-### 10. [Multi-Armed Bandit with Contextual Information](https://github.com/Meri-07m/Reinforcement-Learning/tree/main/contextual-bandit)
-   - **Description**: A variant of the Multi-Armed Bandit problem, where arms have additional contextual information that can influence their rewards.
-   - **Algorithms used**: Contextual Bandit, UCB (Upper Confidence Bound).
-   - **Objective**: Learn the optimal arms to pull based on contextual data.
+### 7. `infinite-variance`
+- Explores **RL scenarios with infinite variance rewards**.
+- Investigates robust learning strategies and alternative approaches.
 
-## 🤖 Algorithms Implemented
+### 8. `mazes`
+- Implements RL algorithms in **maze environments**.
+- Supports Q-Learning, SARSA, and optionally DQN.
+- Includes state visitation heatmaps, trajectory visualizations, and customizable mazes.
 
-This repository showcases several **Reinforcement Learning (RL)** algorithms, including:
+### 9. `random-walk-fa`
+- Implements **Function Approximation (FA)** in random walk problems.
+- Generalizes learning across large or continuous state spaces.
 
-- **Q-Learning**
-- **SARSA (State-Action-Reward-State-Action)**
-- **Monte Carlo Methods**
-- **Temporal Difference Learning**
-- **Value Iteration**
-- **Policy Iteration**
-- **ε-greedy**
-- **Upper Confidence Bound (UCB)**
-- **Gradient Bandit**
+### 10. `random-walk-ntd`
+- Studies **Random Walk problems using Natural Temporal Difference (NTD) learning**.
+- Demonstrates convergence and trajectory visualization.
+
+### 11. `random-walk`
+- Classic **tabular random walk problem**.
+- Helps study Monte Carlo and TD learning in small environments.
+
+### 12. `ten-armed-testbed`
+- Implements **Ten-Armed Bandit problems**.
+- Evaluates exploration strategies such as epsilon-greedy and softmax.
+- Supports stationary and non-stationary reward distributions.
+
+### 13. `tic-tac-toe/src`
+- Applies RL algorithms to the **Tic-Tac-Toe game**.
+- Demonstrates Q-Learning and SARSA policy convergence.
+- Ideal for studying RL in discrete action spaces.
+
+### 14. `trajectory-sampling`
+- Explores **trajectory sampling methods** for policy learning.
+- Includes partial and full trajectory collection.
+- Provides analysis of sampling strategies on learning efficiency.
+
+### 15. `updates-comparison`
+- Compares **different RL update rules**, including Q-Learning, SARSA, and Expected SARSA.
+- Evaluates convergence speed, stability, and policy performance.
+
+### 16. `windy-gridworld`
+- Implements the **Windy Gridworld environment**.
+- Introduces stochastic transitions to study exploration-exploitation trade-offs.
+- Supports Q-Learning and SARSA agents with visualization.
+
+---
